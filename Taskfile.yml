@@ -21,6 +21,11 @@ tasks:
     cmds:
       - task: "{{.GOOS}}:build"
 
+  build:fast:
+    summary: Dev-only fast Go rebuild (skips bindings/pnpm install/frontend build)
+    cmds:
+      - task: "{{.GOOS}}:build:fast"
+
   package:
     summary: Packages a production build of the application
     cmds:

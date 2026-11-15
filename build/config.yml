@@ -52,7 +52,11 @@ dev_mode:
       - "*.ts" # The frontend directory will be excluded entirely by the setting above.
     git_ignore: true
   executes:
-    - cmd: wails3 build DEV=true
+    # 纯后端改动时只重编译 Go（跳过 generate:bindings / pnpm install /
+    # 前端构建），命中 Go 编译缓存后通常 1~3 秒。改了 service 的导出接口
+    # （方法/结构体签名）后，跑一次 `wails3 build DEV=true` 刷新 bindings，
+    # 或删除 frontend/bindings 目录让下次 dev 自动重建。
+    - cmd: wails3 task build:fast
       type: blocking
     - cmd: wails3 task common:dev:frontend
       type: background

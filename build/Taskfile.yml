@@ -190,6 +190,16 @@ tasks:
     cmds:
       - wails3 generate bindings -f '{{.BUILD_FLAGS}}' -clean=true{{if eq .OBFUSCATED "true"}} -obfuscated{{end}} -ts -i
 
+  generate:bindings:if-missing:
+    summary: Generate bindings only when they don't exist (fast dev path)
+    run: once
+    status:
+      - test -d frontend/bindings
+    deps:
+      - task: go:mod:tidy
+    cmds:
+      - wails3 generate bindings -f '{{.BUILD_FLAGS}}' -clean=true -ts -i
+
   generate:icons:
     summary: Generates Windows `.ico` and Mac `.icns` from an image; on macOS, `-iconcomposerinput appicon.icon -macassetdir darwin` also produces `Assets.car` from a `.icon` file (skipped on other platforms).
     run: once

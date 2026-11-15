@@ -3,6 +3,8 @@ bin
 frontend/bindings
 frontend/dist
 frontend/node_modules
+# TypeScript 增量编译缓存
+frontend/tsconfig.tsbuildinfo
 # `go build .` 会在仓库根产出同名二进制
 /dtv
 /dtv.exe
